@@ -11,14 +11,14 @@ const Manager = () => {
           <span>Pass</span><span className='text-green-700'>OP/&gt;
           </span>   
         </h1>
-        <p classname='text-green-900 text-lg text-center'>Your own password manager</p>
-     <div className="text-white flex flex-col p-4">
-        <input className='rounded-full' type="text" name="" id="" />
-         <div classNAme="flex">
-           <input type="text"/>
-           <input type="tect"/>
-         </div>
+        <p className='flex justify-center'>Your own password manager</p>
+      <div className="text-white flex justify-center flex-col p-4">
+      <input className='rounded-full bg-white' type="text" name="" id="" />
+      <div className="flex justify-center">
+        <input type="text" className='bg-white mt-2'/>
+        <input type="text" className='bg-white mt-2 ml-2'/>
       </div>
+    </div>
      </div>
   </>
   )
