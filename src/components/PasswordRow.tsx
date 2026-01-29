@@ -1,18 +1,26 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Password } from '../types/password';
 
 interface PasswordRowProps {
     item: Password;
+    index: number;
     onEdit: (id: string) => void;
     onDelete: (id: string) => void;
     onCopy: (text: string) => void;
 }
 
-const PasswordRow = ({ item, onEdit, onDelete, onCopy }: PasswordRowProps) => {
+const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <tr className='border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors'>
+        <motion.tr
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
+            transition={{ duration: 0.3, delay: index * 0.05 }}
+            className='border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors'
+        >
             <td className='py-4 px-4'>
                 <a
                     href={item.site.startsWith('http') ? item.site : `https://${item.site}`}
@@ -26,15 +34,17 @@ const PasswordRow = ({ item, onEdit, onDelete, onCopy }: PasswordRowProps) => {
             <td className='py-4 px-4 text-slate-300'>
                 <div className='flex items-center gap-2'>
                     {item.username}
-                    <button
+                    <motion.button
                         onClick={() => onCopy(item.username)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                         className='text-slate-500 hover:text-blue-400 transition-colors'
                         title='Copy username'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
                         </svg>
-                    </button>
+                    </motion.button>
                 </div>
             </td>
             <td className='py-4 px-4 text-slate-300'>
@@ -42,8 +52,10 @@ const PasswordRow = ({ item, onEdit, onDelete, onCopy }: PasswordRowProps) => {
                     <span className='font-mono'>
                         {showPassword ? item.password : '••••••••'}
                     </span>
-                    <button
+                    <motion.button
                         onClick={() => setShowPassword(!showPassword)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                         className='text-slate-500 hover:text-blue-400 transition-colors'
                         title='Toggle visibility'
                     >
@@ -57,41 +69,47 @@ const PasswordRow = ({ item, onEdit, onDelete, onCopy }: PasswordRowProps) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                         )}
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={() => onCopy(item.password)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                         className='text-slate-500 hover:text-blue-400 transition-colors'
                         title='Copy password'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
                         </svg>
-                    </button>
+                    </motion.button>
                 </div>
             </td>
             <td className='py-4 px-4'>
                 <div className='flex justify-end gap-3'>
-                    <button
+                    <motion.button
                         onClick={() => onEdit(item.id)}
+                        whileHover={{ scale: 1.2, rotate: 10 }}
+                        whileTap={{ scale: 0.9 }}
                         className='text-slate-400 hover:text-yellow-400 transition-colors'
                         title='Edit'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                         </svg>
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={() => onDelete(item.id)}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                         className='text-slate-400 hover:text-red-400 transition-colors'
                         title='Delete'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                         </svg>
-                    </button>
+                    </motion.button>
                 </div>
             </td>
-        </tr>
+        </motion.tr>
     );
 };
 
