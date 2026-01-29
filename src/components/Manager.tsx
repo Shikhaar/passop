@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePasswords } from '../hooks/usePasswords';
 import PasswordForm from './PasswordForm';
 import PasswordRow from './PasswordRow';
+import Logo from './Logo';
 
 interface ManagerProps {
   session: Session;
@@ -25,15 +26,14 @@ const Manager = ({ session }: ManagerProps) => {
       <div className="absolute inset-0 -z-10 h-full w-full bg-[#020617] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
       <div className="mycontainer mx-auto min-h-[85vh] mt-10 px-4">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className='text-5xl font-extrabold text-center bg-gradient-to-r from-blue-400 to-slate-200 bg-clip-text text-transparent mb-3'
+          className="flex justify-center mb-4"
         >
-          <span className='text-blue-500'>&lt;</span>
-          <span>Pass</span><span className='text-blue-500'>OP/&gt;</span>
-        </motion.h1>
+          <Logo size="large" />
+        </motion.div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

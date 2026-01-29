@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabase';
+import Logo from './Logo';
 
 const Auth = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -44,15 +45,9 @@ const Auth = () => {
                 transition={{ duration: 0.5 }}
                 className="w-full max-w-md"
             >
-                <motion.h1
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className='text-5xl font-extrabold text-center bg-gradient-to-r from-blue-400 to-slate-200 bg-clip-text text-transparent mb-3'
-                >
-                    <span className='text-blue-500'>&lt;</span>
-                    <span>Pass</span><span className='text-blue-500'>OP/&gt;</span>
-                </motion.h1>
+                <div className="flex justify-center mb-4">
+                    <Logo size="large" />
+                </div>
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -119,7 +114,7 @@ const Auth = () => {
                             disabled={loading}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl px-8 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+                            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:from-slate-600 disabled:to-slate-600 disabled:cursor-not-allowed text-white font-semibold rounded-xl px-8 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
                         >
                             {loading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up'}
                         </motion.button>
