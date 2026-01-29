@@ -10,6 +10,7 @@ export const usePasswords = (session: Session) => {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [filterCategory, setFilterCategory] = useState<string>('All');
+    const [editingId, setEditingId] = useState<string | null>(null);
 
     // Fetch passwords from Supabase
     const fetchPasswords = useCallback(async () => {
@@ -43,20 +44,43 @@ export const usePasswords = (session: Session) => {
             return;
         }
 
-        const { error } = await supabase.from('passwords').insert({
-            user_id: session.user.id,
-            site: form.site,
-            username: form.username,
-            password: form.password,
-            category: form.category,
-        });
+        if (editingId) {
+            // Update existing password
+            const { error } = await supabase
+                .from('passwords')
+                .update({
+                    site: form.site,
+                    username: form.username,
+                    password: form.password,
+                    category: form.category,
+                })
+                .eq('id', editingId);
 
-        if (error) {
-            toast.error('Error saving password: ' + error.message);
+            if (error) {
+                toast.error('Error updating password: ' + error.message);
+            } else {
+                toast.success('Password updated!');
+                setForm({ site: '', username: '', password: '', category: 'Other' });
+                setEditingId(null);
+                fetchPasswords();
+            }
         } else {
-            toast.success('Password saved!');
-            setForm({ site: '', username: '', password: '', category: 'Other' });
-            fetchPasswords();
+            // Insert new password
+            const { error } = await supabase.from('passwords').insert({
+                user_id: session.user.id,
+                site: form.site,
+                username: form.username,
+                password: form.password,
+                category: form.category,
+            });
+
+            if (error) {
+                toast.error('Error saving password: ' + error.message);
+            } else {
+                toast.success('Password saved!');
+                setForm({ site: '', username: '', password: '', category: 'Other' });
+                fetchPasswords();
+            }
         }
     };
 
@@ -73,7 +97,7 @@ export const usePasswords = (session: Session) => {
         }
     };
 
-    const editPassword = async (id: string) => {
+    const editPassword = (id: string) => {
         const passwordToEdit = passwordArray.find((item) => item.id === id);
         if (passwordToEdit) {
             setForm({
@@ -82,14 +106,13 @@ export const usePasswords = (session: Session) => {
                 password: passwordToEdit.password,
                 category: passwordToEdit.category || 'Other',
             });
-            // Delete from database (user will re-save with changes)
-            const { error } = await supabase.from('passwords').delete().eq('id', id);
-            if (error) {
-                toast.error('Error editing password');
-            } else {
-                fetchPasswords();
-            }
+            setEditingId(id);
         }
+    };
+
+    const cancelEdit = () => {
+        setForm({ site: '', username: '', password: '', category: 'Other' });
+        setEditingId(null);
     };
 
     const copyToClipboard = (text: string) => {
@@ -120,6 +143,8 @@ export const usePasswords = (session: Session) => {
         savePassword,
         deletePassword,
         editPassword,
+        cancelEdit,
+        editingId,
         copyToClipboard,
     };
 };

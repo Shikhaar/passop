@@ -28,11 +28,23 @@ const Manager = ({ session }: ManagerProps) => {
     savePassword,
     deletePassword,
     editPassword,
+    cancelEdit,
+    editingId,
     copyToClipboard,
   } = usePasswords(session);
 
   const handleSavePassword = () => {
     savePassword();
+    setActiveTab('vault');
+  };
+
+  const handleEditPassword = (id: string) => {
+    editPassword(id);
+    setActiveTab('add');
+  };
+
+  const handleCancelEdit = () => {
+    cancelEdit();
     setActiveTab('vault');
   };
 
@@ -185,7 +197,7 @@ const Manager = ({ session }: ManagerProps) => {
                                 key={item.id}
                                 item={item}
                                 index={index}
-                                onEdit={editPassword}
+                                onEdit={handleEditPassword}
                                 onDelete={deletePassword}
                                 onCopy={copyToClipboard}
                               />
@@ -210,6 +222,8 @@ const Manager = ({ session }: ManagerProps) => {
                     handleChange={handleChange}
                     savePassword={handleSavePassword}
                     setForm={setForm}
+                    isEditing={!!editingId}
+                    onCancelEdit={handleCancelEdit}
                   />
                 </motion.div>
               )}
