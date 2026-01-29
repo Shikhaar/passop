@@ -10,12 +10,7 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
         >
             {/* Shield Icon */}
-            <motion.div
-                className={`relative ${isSmall ? 'w-8 h-8' : 'w-12 h-12'}`}
-                initial={{ rotate: -10, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                transition={{ duration: 0.5, type: 'spring' }}
-            >
+            <div className={`relative ${isSmall ? 'w-8 h-8' : 'w-12 h-12'}`}>
                 <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -23,13 +18,13 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                 >
                     {/* Shield gradient background */}
                     <defs>
-                        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id={`shieldGradient-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#3b82f6" />
                             <stop offset="50%" stopColor="#6366f1" />
                             <stop offset="100%" stopColor="#8b5cf6" />
                         </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                        <filter id={`glow-${size}`}>
+                            <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
                             <feMerge>
                                 <feMergeNode in="coloredBlur" />
                                 <feMergeNode in="SourceGraphic" />
@@ -40,8 +35,8 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                     {/* Shield shape */}
                     <path
                         d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z"
-                        fill="url(#shieldGradient)"
-                        filter="url(#glow)"
+                        fill={`url(#shieldGradient-${size})`}
+                        filter={`url(#glow-${size})`}
                         opacity="0.9"
                     />
 
@@ -69,8 +64,8 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                 </svg>
 
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full -z-10" />
-            </motion.div>
+                <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full -z-10" />
+            </div>
 
             {/* Text */}
             <div className={`font-bold tracking-tight ${isSmall ? 'text-xl' : 'text-4xl'}`}>

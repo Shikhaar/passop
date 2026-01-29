@@ -12,12 +12,12 @@ const Navbar = ({ session }: NavbarProps) => {
   };
 
   return (
-    <nav className='sticky top-0 z-50 backdrop-blur-md bg-slate-900/50 border-b border-slate-700/50 shadow-lg'>
-      <div className='max-w-6xl mx-auto flex justify-between items-center px-4 py-3'>
+    <nav className='sticky top-4 z-50 mx-4 mt-4 backdrop-blur-md bg-slate-900/60 border border-slate-700/50 shadow-xl rounded-2xl'>
+      <div className='flex items-center justify-center px-6 py-4 gap-8'>
         <Logo size="small" />
 
-        <div className='flex items-center gap-6'>
-          <span className='text-slate-400 text-sm hidden sm:block'>
+        <div className='flex items-center gap-2'>
+          <span className='text-slate-400 text-sm'>
             {session.user.email}
           </span>
           <button
