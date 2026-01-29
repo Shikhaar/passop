@@ -84,6 +84,11 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                 </div>
             </td>
             <td className='py-4 px-4'>
+                <span className='text-xs px-2 py-1 rounded-full bg-slate-700/50 text-slate-300'>
+                    {item.category || 'Other'}
+                </span>
+            </td>
+            <td className='py-4 px-4'>
                 <div className='flex justify-end gap-3'>
                     <motion.button
                         onClick={() => onEdit(item.id)}

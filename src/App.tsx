@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import './App.css';
 import { supabase } from './lib/supabase';
 import { Session } from '@supabase/supabase-js';
@@ -35,6 +36,30 @@ function App() {
 
   return (
     <>
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#1e293b',
+            color: '#f1f5f9',
+            border: '1px solid #334155',
+            borderRadius: '12px',
+          },
+          success: {
+            iconTheme: {
+              primary: '#22c55e',
+              secondary: '#f1f5f9',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#f1f5f9',
+            },
+          },
+        }}
+      />
       {session ? (
         <>
           <Navbar session={session} />

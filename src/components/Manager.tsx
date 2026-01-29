@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePasswords } from '../hooks/usePasswords';
+import { CATEGORIES } from '../types/password';
 import PasswordForm from './PasswordForm';
 import PasswordRow from './PasswordRow';
 import Logo from './Logo';
@@ -15,8 +16,14 @@ const Manager = ({ session }: ManagerProps) => {
 
   const {
     form,
+    setForm,
     passwordArray,
+    allPasswords,
     loading,
+    searchQuery,
+    setSearchQuery,
+    filterCategory,
+    setFilterCategory,
     handleChange,
     savePassword,
     deletePassword,
@@ -26,7 +33,6 @@ const Manager = ({ session }: ManagerProps) => {
 
   const handleSavePassword = () => {
     savePassword();
-    // Switch to vault tab after saving
     setActiveTab('vault');
   };
 
@@ -85,9 +91,9 @@ const Manager = ({ session }: ManagerProps) => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
               </svg>
               My Vault
-              {passwordArray.length > 0 && (
+              {allPasswords.length > 0 && (
                 <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full">
-                  {passwordArray.length}
+                  {allPasswords.length}
                 </span>
               )}
             </button>
@@ -104,6 +110,34 @@ const Manager = ({ session }: ManagerProps) => {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.2 }}
                 >
+                  {/* Search and Filter */}
+                  {allPasswords.length > 0 && (
+                    <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                      <div className="relative flex-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <input
+                          type="text"
+                          placeholder="Search by site or username..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-sm"
+                        />
+                      </div>
+                      <select
+                        value={filterCategory}
+                        onChange={(e) => setFilterCategory(e.target.value)}
+                        className="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/50 text-white focus:border-blue-500 outline-none transition-all text-sm"
+                      >
+                        <option value="All" className="bg-slate-800">All Categories</option>
+                        {CATEGORIES.map((cat) => (
+                          <option key={cat} value={cat} className="bg-slate-800">{cat}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
                   {loading ? (
                     <div className='text-slate-500 text-center py-16'>
                       <motion.div
@@ -117,14 +151,20 @@ const Manager = ({ session }: ManagerProps) => {
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-16 h-16 mx-auto mb-4 text-slate-600">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                       </svg>
-                      <p className="text-lg mb-2">Your vault is empty</p>
-                      <p className="text-sm text-slate-600 mb-4">Add your first password to get started</p>
-                      <button
-                        onClick={() => setActiveTab('add')}
-                        className="text-blue-400 hover:text-blue-300 text-sm font-medium"
-                      >
-                        + Add Password
-                      </button>
+                      {allPasswords.length === 0 ? (
+                        <>
+                          <p className="text-lg mb-2">Your vault is empty</p>
+                          <p className="text-sm text-slate-600 mb-4">Add your first password to get started</p>
+                          <button
+                            onClick={() => setActiveTab('add')}
+                            className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                          >
+                            + Add Password
+                          </button>
+                        </>
+                      ) : (
+                        <p className="text-lg">No passwords match your search</p>
+                      )}
                     </div>
                   ) : (
                     <div className='overflow-x-auto'>
@@ -134,6 +174,7 @@ const Manager = ({ session }: ManagerProps) => {
                             <th className='py-3 px-4'>Site</th>
                             <th className='py-3 px-4'>Username</th>
                             <th className='py-3 px-4'>Password</th>
+                            <th className='py-3 px-4'>Category</th>
                             <th className='py-3 px-4 text-right'>Actions</th>
                           </tr>
                         </thead>
@@ -168,6 +209,7 @@ const Manager = ({ session }: ManagerProps) => {
                     form={form}
                     handleChange={handleChange}
                     savePassword={handleSavePassword}
+                    setForm={setForm}
                   />
                 </motion.div>
               )}

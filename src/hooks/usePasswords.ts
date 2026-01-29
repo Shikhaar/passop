@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Session } from '@supabase/supabase-js';
+import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
 import { Password } from '../types/password';
 
 export const usePasswords = (session: Session) => {
-    const [form, setForm] = useState({ site: '', username: '', password: '' });
+    const [form, setForm] = useState({ site: '', username: '', password: '', category: 'Other' });
     const [passwordArray, setPasswordArray] = useState<Password[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterCategory, setFilterCategory] = useState<string>('All');
 
     // Fetch passwords from Supabase
     const fetchPasswords = useCallback(async () => {
@@ -19,6 +22,7 @@ export const usePasswords = (session: Session) => {
 
         if (error) {
             console.error('Error fetching passwords:', error);
+            toast.error('Failed to load passwords');
         } else {
             setPasswordArray(data || []);
         }
@@ -29,13 +33,13 @@ export const usePasswords = (session: Session) => {
         fetchPasswords();
     }, [fetchPasswords]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const savePassword = async () => {
         if (!form.site || !form.username || !form.password) {
-            alert('Please fill all fields');
+            toast.error('Please fill all fields');
             return;
         }
 
@@ -44,12 +48,14 @@ export const usePasswords = (session: Session) => {
             site: form.site,
             username: form.username,
             password: form.password,
+            category: form.category,
         });
 
         if (error) {
-            alert('Error saving password: ' + error.message);
+            toast.error('Error saving password: ' + error.message);
         } else {
-            setForm({ site: '', username: '', password: '' });
+            toast.success('Password saved!');
+            setForm({ site: '', username: '', password: '', category: 'Other' });
             fetchPasswords();
         }
     };
@@ -59,8 +65,9 @@ export const usePasswords = (session: Session) => {
         if (confirmed) {
             const { error } = await supabase.from('passwords').delete().eq('id', id);
             if (error) {
-                alert('Error deleting password: ' + error.message);
+                toast.error('Error deleting password');
             } else {
+                toast.success('Password deleted');
                 fetchPasswords();
             }
         }
@@ -73,11 +80,12 @@ export const usePasswords = (session: Session) => {
                 site: passwordToEdit.site,
                 username: passwordToEdit.username,
                 password: passwordToEdit.password,
+                category: passwordToEdit.category || 'Other',
             });
             // Delete from database (user will re-save with changes)
             const { error } = await supabase.from('passwords').delete().eq('id', id);
             if (error) {
-                alert('Error editing password: ' + error.message);
+                toast.error('Error editing password');
             } else {
                 fetchPasswords();
             }
@@ -86,13 +94,28 @@ export const usePasswords = (session: Session) => {
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        alert('Copied to clipboard!');
+        toast.success('Copied to clipboard!');
     };
+
+    // Filtered passwords based on search and category
+    const filteredPasswords = passwordArray.filter((item) => {
+        const matchesSearch =
+            item.site.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.username.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = filterCategory === 'All' || item.category === filterCategory;
+        return matchesSearch && matchesCategory;
+    });
 
     return {
         form,
-        passwordArray,
+        setForm,
+        passwordArray: filteredPasswords,
+        allPasswords: passwordArray,
         loading,
+        searchQuery,
+        setSearchQuery,
+        filterCategory,
+        setFilterCategory,
         handleChange,
         savePassword,
         deletePassword,
