@@ -15,19 +15,25 @@ export const usePasswords = (session: Session) => {
     // Fetch passwords from Supabase
     const fetchPasswords = useCallback(async () => {
         setLoading(true);
-        const { data, error } = await supabase
-            .from('passwords')
-            .select('*')
-            .eq('user_id', session.user.id)
-            .order('created_at', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('passwords')
+                .select('*')
+                .eq('user_id', session.user.id)
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('Error fetching passwords:', error);
-            toast.error('Failed to load passwords');
-        } else {
-            setPasswordArray(data || []);
+            if (error) {
+                console.error('Error fetching passwords:', error);
+                toast.error('Failed to load passwords');
+            } else {
+                setPasswordArray(data || []);
+            }
+        } catch (err: any) {
+            console.error('Network or unexpected error fetching passwords:', err);
+            toast.error('Network error fetching passwords');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }, [session.user.id]);
 
     useEffect(() => {

@@ -50,13 +50,6 @@ const Manager = ({ session }: ManagerProps) => {
 
   return (
     <>
-      <div className="fixed inset-0 -z-10 h-full w-full bg-[#0a0a0a]">
-        <div className="absolute top-0 -z-10 h-full w-full bg-[radial-gradient(#ffffff22_1px,#00091d_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute top-0 right-0 -m-32 h-[400px] w-[400px] rounded-full bg-indigo-500/20 blur-[120px] mix-blend-screen"></div>
-        <div className="absolute bottom-0 left-0 -m-32 h-[400px] w-[400px] rounded-full bg-rose-500/20 blur-[120px] mix-blend-screen"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[150px] mix-blend-screen"></div>
-      </div>
-
       <div className="max-w-6xl w-full mx-auto min-h-[85vh] py-10 px-6 flex flex-col items-center justify-center">
         {/* Hero Section */}
         <motion.div

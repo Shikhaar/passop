@@ -6,6 +6,7 @@ import { Session } from '@supabase/supabase-js';
 import Navbar from './components/Navbar';
 import Manager from './components/Manager';
 import Auth from './components/Auth';
+import AnimatedBackground from './components/AnimatedBackground';
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -13,10 +14,15 @@ function App() {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        setSession(session);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to get session:", err);
+        setLoading(false);
+      });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -36,6 +42,7 @@ function App() {
 
   return (
     <>
+      <AnimatedBackground />
       <Toaster
         position="bottom-right"
         toastOptions={{
