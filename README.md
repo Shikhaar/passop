@@ -8,7 +8,7 @@
 
 PassOP is a highly aesthetic, secure, and interactive Password Manager built with React, Vite, Tailwind CSS, and Supabase. It features a premium custom-built UI with glassmorphism elements, dynamic particle backgrounds, and smooth spring animations.
 
-## ✨ Features
+##  Features
 
 - **Secure Authentication**: Email and password-based login powered by Supabase Auth.
 - **Password Vault**: Store, copy, search, categorize, and delete your passwords securely across different sites.
@@ -17,7 +17,7 @@ PassOP is a highly aesthetic, secure, and interactive Password Manager built wit
 - **Responsive Design**: Works perfectly across mobile, tablet, and desktop devices.
 - **Real-time Toasts**: Instant success/error feedback loops via `react-hot-toast`.
 
-## 🚀 How to Run Locally
+##  How to Run Locally
 
 Follow these steps if you want to fork, clone, and run PassOP on your local machine.
 
@@ -68,9 +68,9 @@ npm run dev
 
 The app should now be running locally at `http://localhost:5173/`.
 
-## 🤝 Contributing
+## Contributing
 Contributions, issues, and feature requests are welcome!
 Feel free to check [issues page](https://github.com/Shikhaar/passop/issues).
 
-## 📝 License
+## License
 This project is open-source and available under the [MIT License](LICENSE).
