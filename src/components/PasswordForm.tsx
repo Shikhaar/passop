@@ -23,11 +23,11 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
     };
 
     return (
-        <div className='flex flex-col gap-5'>
-            <div className='relative w-full'>
-                <label className='text-slate-400 text-sm mb-2 block'>Website URL</label>
+        <div className='flex flex-col gap-6'>
+            <div className='relative w-full group'>
+                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Website URL</label>
                 <input
-                    className='w-full rounded-xl border border-slate-700 bg-slate-800/50 px-5 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300'
+                    className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
                     type="text"
                     name="site"
                     value={form.site}
@@ -36,33 +36,33 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                 />
             </div>
 
-            <div className='relative w-full'>
-                <label className='text-slate-400 text-sm mb-2 block'>Username / Email</label>
+            <div className='relative w-full group'>
+                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Username / Email</label>
                 <input
                     type="text"
                     name="username"
                     value={form.username}
                     onChange={handleChange}
-                    className='w-full rounded-xl border border-slate-700 bg-slate-800/50 px-5 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300'
+                    className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
                     placeholder="e.g. john@email.com"
                 />
             </div>
 
-            <div className='relative w-full'>
-                <label className='text-slate-400 text-sm mb-2 block'>Password</label>
-                <div className="flex gap-2">
+            <div className='relative w-full group'>
+                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Password</label>
+                <div className="flex gap-3">
                     <input
-                        type="text"
+                        type={showGenerator ? "text" : "password"}
                         name="password"
                         value={form.password}
                         onChange={handleChange}
-                        className='flex-1 rounded-xl border border-slate-700 bg-slate-800/50 px-5 py-3 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300 font-mono'
+                        className='flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 font-mono backdrop-blur-md shadow-inner'
                         placeholder="••••••••"
                     />
                     <button
                         type="button"
                         onClick={() => setShowGenerator(!showGenerator)}
-                        className="px-4 py-3 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all"
+                        className={`px-5 py-3.5 rounded-2xl border transition-all duration-300 flex items-center justify-center ${showGenerator ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-400' : 'border-white/10 bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white'}`}
                         title="Generate password"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -70,84 +70,88 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                         </svg>
                     </button>
                 </div>
-                <PasswordStrength password={form.password} />
+                <div className="mt-3">
+                    <PasswordStrength password={form.password} />
+                </div>
 
                 {/* Generator Options */}
                 <AnimatePresence>
                     {showGenerator && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="mt-3 p-4 bg-slate-800/50 rounded-xl border border-slate-700"
+                            initial={{ opacity: 0, height: 0, y: -10 }}
+                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -10 }}
+                            className="mt-4 p-5 bg-black/40 backdrop-blur-md rounded-2xl border border-white/5 shadow-xl overflow-hidden"
                         >
-                            <div className="flex items-center justify-between mb-4">
-                                <span className="text-sm text-slate-300">Length: {genOptions.length}</span>
-                                <input
-                                    type="range"
-                                    min="8"
-                                    max="32"
-                                    value={genOptions.length}
-                                    onChange={(e) => setGenOptions({ ...genOptions, length: parseInt(e.target.value) })}
-                                    className="w-32 accent-blue-500"
-                                />
+                            <div className="flex flex-col gap-5">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm font-medium text-zinc-300">Length: <span className="text-indigo-400 ml-1">{genOptions.length}</span></span>
+                                    <input
+                                        type="range"
+                                        min="8"
+                                        max="32"
+                                        value={genOptions.length}
+                                        onChange={(e) => setGenOptions({ ...genOptions, length: parseInt(e.target.value) })}
+                                        className="w-32 accent-indigo-500"
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {[
+                                        { key: 'includeUppercase', label: 'ABC' },
+                                        { key: 'includeLowercase', label: 'abc' },
+                                        { key: 'includeNumbers', label: '123' },
+                                        { key: 'includeSymbols', label: '#$%' },
+                                    ].map((opt) => (
+                                        <label key={opt.key} className="flex items-center gap-3 text-sm font-medium text-zinc-400 cursor-pointer hover:text-white transition-colors">
+                                            <input
+                                                type="checkbox"
+                                                checked={genOptions[opt.key as keyof typeof genOptions] as boolean}
+                                                onChange={(e) => setGenOptions({ ...genOptions, [opt.key]: e.target.checked })}
+                                                className="w-4 h-4 rounded border-white/20 bg-black/50 text-indigo-500 focus:ring-indigo-500/50 focus:ring-offset-0 focus:ring-2 transition-all"
+                                            />
+                                            {opt.label}
+                                        </label>
+                                    ))}
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={handleGenerate}
+                                    className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold transition-all shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)]"
+                                >
+                                    Generate New Password
+                                </button>
                             </div>
-                            <div className="grid grid-cols-2 gap-2 mb-4">
-                                {[
-                                    { key: 'includeUppercase', label: 'ABC' },
-                                    { key: 'includeLowercase', label: 'abc' },
-                                    { key: 'includeNumbers', label: '123' },
-                                    { key: 'includeSymbols', label: '#$%' },
-                                ].map((opt) => (
-                                    <label key={opt.key} className="flex items-center gap-2 text-sm text-slate-400 cursor-pointer">
-                                        <input
-                                            type="checkbox"
-                                            checked={genOptions[opt.key as keyof typeof genOptions] as boolean}
-                                            onChange={(e) => setGenOptions({ ...genOptions, [opt.key]: e.target.checked })}
-                                            className="accent-blue-500"
-                                        />
-                                        {opt.label}
-                                    </label>
-                                ))}
-                            </div>
-                            <button
-                                type="button"
-                                onClick={handleGenerate}
-                                className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-all"
-                            >
-                                Generate
-                            </button>
                         </motion.div>
                     )}
                 </AnimatePresence>
             </div>
 
-            <div className='relative w-full'>
-                <label className='text-slate-400 text-sm mb-2 block'>Category</label>
+            <div className='relative w-full group'>
+                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Category</label>
                 <div className="relative">
                     <select
                         name="category"
                         value={form.category}
                         onChange={handleChange}
-                        className='w-full rounded-xl border border-slate-700 bg-slate-800/50 px-5 py-3 pr-10 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300 appearance-none cursor-pointer'
+                        className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 pr-10 text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 appearance-none cursor-pointer backdrop-blur-md shadow-inner'
                     >
                         {CATEGORIES.map((cat) => (
-                            <option key={cat} value={cat} className="bg-slate-800">{cat}</option>
+                            <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>
                         ))}
                     </select>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none group-focus-within:text-indigo-400 transition-colors">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
                 </div>
             </div>
 
-            <div className="flex gap-3 mt-2">
+            <div className="flex gap-4 mt-4">
                 {isEditing && onCancelEdit && (
                     <motion.button
                         onClick={onCancelEdit}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className='flex-1 flex justify-center items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-xl px-6 py-3 transition-all duration-300'
+                        className='flex-1 flex justify-center items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-2xl px-6 py-4 transition-all duration-300'
                     >
                         Cancel
                     </motion.button>
@@ -156,7 +160,7 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                     onClick={savePassword}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className='flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl px-6 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40'
+                    className='flex-[2] flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-2xl px-6 py-4 transition-all duration-300 shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)]'
                 >
                     {isEditing ? (
                         <>

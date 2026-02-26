@@ -50,7 +50,12 @@ const Manager = ({ session }: ManagerProps) => {
 
   return (
     <>
-      <div className="absolute inset-0 -z-10 h-full w-full bg-[#020617] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <div className="fixed inset-0 -z-10 h-full w-full bg-[#0a0a0a]">
+        <div className="absolute top-0 -z-10 h-full w-full bg-[radial-gradient(#ffffff22_1px,#00091d_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute top-0 right-0 -m-32 h-[400px] w-[400px] rounded-full bg-indigo-500/20 blur-[120px] mix-blend-screen"></div>
+        <div className="absolute bottom-0 left-0 -m-32 h-[400px] w-[400px] rounded-full bg-rose-500/20 blur-[120px] mix-blend-screen"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[150px] mix-blend-screen"></div>
+      </div>
 
       <div className="max-w-6xl w-full mx-auto min-h-[85vh] py-10 px-6 flex flex-col items-center justify-center">
         {/* Hero Section */}
@@ -66,7 +71,7 @@ const Manager = ({ session }: ManagerProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className='text-lg text-slate-400 text-center mb-10'
+          className='text-lg text-zinc-400 text-center mb-10 tracking-wide'
         >
           Your own digital vault.
         </motion.p>
@@ -76,35 +81,35 @@ const Manager = ({ session }: ManagerProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="w-full bg-slate-900/60 backdrop-blur-md border border-slate-700/50 rounded-2xl shadow-xl overflow-hidden"
+          className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl shadow-black/50 overflow-hidden"
         >
           {/* Tab Headers */}
-          <div className="flex border-b border-slate-700/50">
+          <div className="flex p-2 gap-2 border-b border-white/5 bg-white/5">
             <button
               onClick={() => setActiveTab('add')}
-              className={`flex-1 py-4 px-6 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'add'
-                ? 'text-white bg-slate-800/50 border-b-2 border-blue-500'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/30'
+              className={`flex-1 py-3 px-6 text-sm font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'add'
+                ? 'text-white bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.4)]'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
               Add Password
             </button>
             <button
               onClick={() => setActiveTab('vault')}
-              className={`flex-1 py-4 px-6 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${activeTab === 'vault'
-                ? 'text-white bg-slate-800/50 border-b-2 border-blue-500'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/30'
+              className={`flex-1 py-3 px-6 text-sm font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'vault'
+                ? 'text-white bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.4)]'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
               </svg>
               My Vault
               {allPasswords.length > 0 && (
-                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-0.5 rounded-full">
+                <span className={`text-xs px-2.5 py-0.5 rounded-full ${activeTab === 'vault' ? 'bg-white/20 text-white' : 'bg-white/10 text-zinc-300'}`}>
                   {allPasswords.length}
                 </span>
               )}
@@ -124,9 +129,9 @@ const Manager = ({ session }: ManagerProps) => {
                 >
                   {/* Search and Filter */}
                   {allPasswords.length > 0 && (
-                    <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                      <div className="relative flex-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+                    <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                      <div className="relative flex-1 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-indigo-400 transition-colors">
                           <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                         <input
@@ -134,54 +139,61 @@ const Manager = ({ session }: ManagerProps) => {
                           placeholder="Search by site or username..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-sm"
+                          className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 text-sm backdrop-blur-md shadow-inner"
                         />
                       </div>
-                      <select
-                        value={filterCategory}
-                        onChange={(e) => setFilterCategory(e.target.value)}
-                        className="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/50 text-white focus:border-blue-500 outline-none transition-all text-sm"
-                      >
-                        <option value="All" className="bg-slate-800">All Categories</option>
-                        {CATEGORIES.map((cat) => (
-                          <option key={cat} value={cat} className="bg-slate-800">{cat}</option>
-                        ))}
-                      </select>
+                      <div className="relative group">
+                        <select
+                          value={filterCategory}
+                          onChange={(e) => setFilterCategory(e.target.value)}
+                          className="w-full sm:w-48 pl-4 pr-10 py-3.5 rounded-2xl border border-white/10 bg-white/5 text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 text-sm backdrop-blur-md shadow-inner appearance-none cursor-pointer"
+                        >
+                          <option value="All" className="bg-zinc-900">All Categories</option>
+                          {CATEGORIES.map((cat) => (
+                            <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>
+                          ))}
+                        </select>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none group-focus-within:text-indigo-400 transition-colors">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                      </div>
                     </div>
                   )}
 
                   {loading ? (
-                    <div className='text-slate-500 text-center py-16'>
+                    <div className='text-zinc-500 text-center py-20'>
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        className='inline-block w-8 h-8 border-2 border-slate-500 border-t-blue-500 rounded-full'
+                        className='inline-block w-10 h-10 border-2 border-zinc-700 border-t-indigo-500 rounded-full'
                       />
                     </div>
                   ) : passwordArray.length === 0 ? (
-                    <div className='text-slate-500 text-center py-16'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-16 h-16 mx-auto mb-4 text-slate-600">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                      </svg>
+                    <div className='text-zinc-500 text-center py-20 flex flex-col items-center'>
+                      <div className="w-24 h-24 mb-6 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-12 h-12 text-zinc-400">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        </svg>
+                      </div>
                       {allPasswords.length === 0 ? (
                         <>
-                          <p className="text-lg mb-2">Your vault is empty</p>
-                          <p className="text-sm text-slate-600 mb-4">Add your first password to get started</p>
+                          <p className="text-xl text-white font-medium mb-2">Your vault is empty</p>
+                          <p className="text-sm text-zinc-400 mb-6 max-w-sm">Securely store your passwords here. Get started by adding your first entry.</p>
                           <button
                             onClick={() => setActiveTab('add')}
-                            className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                            className="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-3 px-8 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:scale-105"
                           >
-                            + Add Password
+                            Add Password
                           </button>
                         </>
                       ) : (
-                        <p className="text-lg">No passwords match your search</p>
+                        <p className="text-lg text-white font-medium">No passwords match your search</p>
                       )}
                     </div>
                   ) : (
                     <div className='overflow-x-auto'>
                       <table className='w-full text-left'>
-                        <thead className='text-slate-400 text-xs uppercase border-b border-slate-800'>
+                        <thead className='text-zinc-500 text-xs font-semibold uppercase tracking-wider border-b border-white/5'>
                           <tr>
                             <th className='py-3 px-4'>Site</th>
                             <th className='py-3 px-4'>Username</th>

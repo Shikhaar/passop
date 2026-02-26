@@ -19,9 +19,9 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                     {/* Shield gradient background */}
                     <defs>
                         <linearGradient id={`shieldGradient-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#3b82f6" />
-                            <stop offset="50%" stopColor="#6366f1" />
-                            <stop offset="100%" stopColor="#8b5cf6" />
+                            <stop offset="0%" stopColor="#4f46e5" />
+                            <stop offset="50%" stopColor="#8b5cf6" />
+                            <stop offset="100%" stopColor="#e11d48" />
                         </linearGradient>
                         <filter id={`glow-${size}`}>
                             <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
@@ -59,20 +59,20 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                         cx="12"
                         cy="12.5"
                         r="1"
-                        fill="#3b82f6"
+                        fill="#4f46e5"
                     />
                 </svg>
 
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full -z-10" />
+                <div className="absolute inset-0 bg-indigo-500/30 blur-xl rounded-full -z-10" />
             </div>
 
             {/* Text */}
             <div className={`font-bold tracking-tight ${isSmall ? 'text-xl' : 'text-4xl'}`}>
-                <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 bg-clip-text text-transparent">
                     Pass
                 </span>
-                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-rose-400 to-indigo-400 bg-clip-text text-transparent">
                     OP
                 </span>
             </div>

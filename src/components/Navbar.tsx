@@ -12,17 +12,17 @@ const Navbar = ({ session }: NavbarProps) => {
   };
 
   return (
-    <nav className='sticky top-4 z-50 mx-4 mt-4 backdrop-blur-md bg-slate-900/60 border border-slate-700/50 shadow-xl rounded-2xl'>
-      <div className='flex items-center justify-center px-6 py-4 gap-8'>
+    <nav className='sticky top-4 z-50 mx-4 mt-4 backdrop-blur-xl bg-black/40 border border-white/10 shadow-2xl rounded-3xl'>
+      <div className='flex items-center justify-between px-6 py-4 max-w-6xl mx-auto'>
         <Logo size="small" />
 
-        <div className='flex items-center gap-2'>
-          <span className='text-slate-400 text-sm'>
+        <div className='flex items-center gap-4'>
+          <span className='text-zinc-400 text-sm font-medium'>
             {session.user.email}
           </span>
           <button
             onClick={handleLogout}
-            className='bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-slate-700'
+            className='bg-white/5 hover:bg-rose-500/10 text-zinc-300 hover:text-rose-400 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 border border-white/10 hover:border-rose-500/30 shadow-inner'
           >
             Logout
           </button>
