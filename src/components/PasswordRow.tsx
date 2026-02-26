@@ -19,26 +19,26 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            className='border-b border-white/5 hover:bg-white/5 transition-all group'
+            className='border-b border-slate-200/50 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/5 transition-all group'
         >
             <td className='py-4 px-4'>
                 <a
                     href={item.site.startsWith('http') ? item.site : `https://${item.site}`}
                     target='_blank'
                     rel='noreferrer'
-                    className='text-indigo-400 hover:text-indigo-300 font-medium transition-colors'
+                    className='text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium transition-colors'
                 >
                     {item.site}
                 </a>
             </td>
-            <td className='py-4 px-4 text-zinc-300'>
+            <td className='py-4 px-4 text-slate-700 dark:text-zinc-300'>
                 <div className='flex items-center gap-2'>
                     {item.username}
                     <motion.button
                         onClick={() => onCopy(item.username)}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
-                        className='text-zinc-500 hover:text-indigo-400 transition-colors'
+                        className='text-slate-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors'
                         title='Copy username'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -47,7 +47,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                     </motion.button>
                 </div>
             </td>
-            <td className='py-4 px-4 text-zinc-300'>
+            <td className='py-4 px-4 text-slate-700 dark:text-zinc-300'>
                 <div className='flex items-center gap-2'>
                     <span className='font-mono'>
                         {showPassword ? item.password : '••••••••'}
@@ -56,7 +56,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                         onClick={() => setShowPassword(!showPassword)}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
-                        className='text-zinc-500 hover:text-indigo-400 transition-colors'
+                        className='text-slate-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors'
                         title='Toggle visibility'
                     >
                         {showPassword ? (
@@ -74,7 +74,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                         onClick={() => onCopy(item.password)}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
-                        className='text-zinc-500 hover:text-indigo-400 transition-colors'
+                        className='text-slate-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors'
                         title='Copy password'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -84,7 +84,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                 </div>
             </td>
             <td className='py-4 px-4'>
-                <span className='text-xs px-3 py-1.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium'>
+                <span className='text-xs px-3 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/20 font-medium'>
                     {item.category || 'Other'}
                 </span>
             </td>
@@ -94,7 +94,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                         onClick={() => onEdit(item.id)}
                         whileHover={{ scale: 1.2, rotate: 10 }}
                         whileTap={{ scale: 0.9 }}
-                        className='text-zinc-500 hover:text-yellow-400 transition-colors'
+                        className='text-slate-400 dark:text-zinc-500 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors'
                         title='Edit'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -105,7 +105,7 @@ const PasswordRow = ({ item, index, onEdit, onDelete, onCopy }: PasswordRowProps
                         onClick={() => onDelete(item.id)}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
-                        className='text-zinc-500 hover:text-rose-400 transition-colors'
+                        className='text-slate-400 dark:text-zinc-500 hover:text-rose-500 dark:hover:text-rose-400 transition-colors'
                         title='Delete'
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

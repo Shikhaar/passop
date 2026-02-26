@@ -72,7 +72,7 @@ const Logo = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
                 <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-rose-400 bg-clip-text text-transparent">
                     Pass
                 </span>
-                <span className="bg-gradient-to-r from-rose-400 to-indigo-400 bg-clip-text text-transparent">
+                <span className="text-indigo-600 dark:text-indigo-400">
                     OP
                 </span>
             </div>

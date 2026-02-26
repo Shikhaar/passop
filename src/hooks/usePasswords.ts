@@ -135,6 +135,35 @@ export const usePasswords = (session: Session) => {
         return matchesSearch && matchesCategory;
     });
 
+    const exportToCSV = () => {
+        if (passwordArray.length === 0) {
+            toast.error("No passwords to export");
+            return;
+        }
+
+        const headers = ["Site,Username,Password,Category"];
+        const rows = passwordArray.map(item => {
+            // Escape quotes and commas
+            const site = `"${item.site.replace(/"/g, '""')}"`;
+            const username = `"${item.username.replace(/"/g, '""')}"`;
+            const password = `"${item.password.replace(/"/g, '""')}"`;
+            const category = `"${(item.category || "Other").replace(/"/g, '""')}"`;
+            return `${site},${username},${password},${category}`;
+        });
+
+        const csvContent = "data:text/csv;charset=utf-8," + headers.concat(rows).join("\n");
+        const encodedUri = encodeURI(csvContent);
+
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `passwords_export_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+
+        link.click();
+        document.body.removeChild(link);
+        toast.success("Exported successfully!");
+    };
+
     return {
         form,
         setForm,
@@ -152,5 +181,6 @@ export const usePasswords = (session: Session) => {
         cancelEdit,
         editingId,
         copyToClipboard,
+        exportToCSV,
     };
 };

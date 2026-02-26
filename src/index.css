@@ -6,10 +6,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #020617; /* Slate 950 */
-
+  color-scheme: light dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,9 +16,16 @@
 body {
   margin: 0;
   display: flex;
-  place-items: start; /* Align to top */
+  place-items: start;
+  /* Align to top */
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
   background-color: transparent;
+  color: #020617;
+  /* Slate 950 */
+}
+
+html.dark body {
+  color: rgba(255, 255, 255, 0.87);
 }

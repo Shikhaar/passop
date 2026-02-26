@@ -25,9 +25,9 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
     return (
         <div className='flex flex-col gap-6'>
             <div className='relative w-full group'>
-                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Website URL</label>
+                <label className='text-slate-500 dark:text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors'>Website URL</label>
                 <input
-                    className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
+                    className='w-full rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-white/5 px-5 py-3.5 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
                     type="text"
                     name="site"
                     value={form.site}
@@ -37,32 +37,32 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
             </div>
 
             <div className='relative w-full group'>
-                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Username / Email</label>
+                <label className='text-slate-500 dark:text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors'>Username / Email</label>
                 <input
                     type="text"
                     name="username"
                     value={form.username}
                     onChange={handleChange}
-                    className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
+                    className='w-full rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-white/5 px-5 py-3.5 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 backdrop-blur-md shadow-inner'
                     placeholder="e.g. john@email.com"
                 />
             </div>
 
             <div className='relative w-full group'>
-                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Password</label>
+                <label className='text-slate-500 dark:text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors'>Password</label>
                 <div className="flex gap-3">
                     <input
                         type={showGenerator ? "text" : "password"}
                         name="password"
                         value={form.password}
                         onChange={handleChange}
-                        className='flex-1 rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-white placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 font-mono backdrop-blur-md shadow-inner'
+                        className='flex-1 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-white/5 px-5 py-3.5 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 font-mono backdrop-blur-md shadow-inner'
                         placeholder="••••••••"
                     />
                     <button
                         type="button"
                         onClick={() => setShowGenerator(!showGenerator)}
-                        className={`px-5 py-3.5 rounded-2xl border transition-all duration-300 flex items-center justify-center ${showGenerator ? 'bg-indigo-600/20 border-indigo-500/50 text-indigo-400' : 'border-white/10 bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white'}`}
+                        className={`px-5 py-3.5 rounded-2xl border transition-all duration-300 flex items-center justify-center ${showGenerator ? 'bg-indigo-100 dark:bg-indigo-600/20 border-indigo-500/50 text-indigo-600 dark:text-indigo-400' : 'border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-500 dark:text-zinc-300 hover:text-slate-800 dark:hover:text-white'}`}
                         title="Generate password"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -81,11 +81,11 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                             initial={{ opacity: 0, height: 0, y: -10 }}
                             animate={{ opacity: 1, height: 'auto', y: 0 }}
                             exit={{ opacity: 0, height: 0, y: -10 }}
-                            className="mt-4 p-5 bg-black/40 backdrop-blur-md rounded-2xl border border-white/5 shadow-xl overflow-hidden"
+                            className="mt-4 p-5 bg-white/80 dark:bg-black/40 backdrop-blur-xl rounded-2xl border border-slate-200/60 dark:border-white/5 shadow-xl overflow-hidden"
                         >
                             <div className="flex flex-col gap-5">
                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium text-zinc-300">Length: <span className="text-indigo-400 ml-1">{genOptions.length}</span></span>
+                                    <span className="text-sm font-medium text-slate-600 dark:text-zinc-300">Length: <span className="text-indigo-600 dark:text-indigo-400 ml-1">{genOptions.length}</span></span>
                                     <input
                                         type="range"
                                         min="8"
@@ -102,12 +102,12 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                                         { key: 'includeNumbers', label: '123' },
                                         { key: 'includeSymbols', label: '#$%' },
                                     ].map((opt) => (
-                                        <label key={opt.key} className="flex items-center gap-3 text-sm font-medium text-zinc-400 cursor-pointer hover:text-white transition-colors">
+                                        <label key={opt.key} className="flex items-center gap-3 text-sm font-medium text-slate-500 dark:text-zinc-400 cursor-pointer hover:text-slate-800 dark:hover:text-white transition-colors">
                                             <input
                                                 type="checkbox"
                                                 checked={genOptions[opt.key as keyof typeof genOptions] as boolean}
                                                 onChange={(e) => setGenOptions({ ...genOptions, [opt.key]: e.target.checked })}
-                                                className="w-4 h-4 rounded border-white/20 bg-black/50 text-indigo-500 focus:ring-indigo-500/50 focus:ring-offset-0 focus:ring-2 transition-all"
+                                                className="w-4 h-4 rounded border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-black/50 text-indigo-500 focus:ring-indigo-500/50 focus:ring-offset-0 focus:ring-2 transition-all"
                                             />
                                             {opt.label}
                                         </label>
@@ -127,19 +127,19 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
             </div>
 
             <div className='relative w-full group'>
-                <label className='text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-400 transition-colors'>Category</label>
+                <label className='text-slate-500 dark:text-zinc-400 text-xs uppercase tracking-wider font-semibold mb-2 block group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors'>Category</label>
                 <div className="relative">
                     <select
                         name="category"
                         value={form.category}
                         onChange={handleChange}
-                        className='w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 pr-10 text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 appearance-none cursor-pointer backdrop-blur-md shadow-inner'
+                        className='w-full rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-white/5 px-5 py-3.5 pr-10 text-slate-800 dark:text-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-300 appearance-none cursor-pointer backdrop-blur-md shadow-inner'
                     >
                         {CATEGORIES.map((cat) => (
-                            <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>
+                            <option key={cat} value={cat} className="bg-white dark:bg-zinc-900">{cat}</option>
                         ))}
                     </select>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none group-focus-within:text-indigo-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-500 pointer-events-none group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
                 </div>
@@ -151,7 +151,7 @@ const PasswordForm = ({ form, handleChange, savePassword, setForm, isEditing, on
                         onClick={onCancelEdit}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className='flex-1 flex justify-center items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-2xl px-6 py-4 transition-all duration-300'
+                        className='flex-1 flex justify-center items-center gap-2 bg-slate-200/50 dark:bg-white/5 hover:bg-slate-300/50 dark:hover:bg-white/10 border border-slate-300/50 dark:border-white/10 text-slate-700 dark:text-white font-semibold rounded-2xl px-6 py-4 transition-all duration-300'
                     >
                         Cancel
                     </motion.button>

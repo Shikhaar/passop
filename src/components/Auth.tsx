@@ -52,7 +52,7 @@ const Auth = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className='text-lg text-slate-400 text-center mb-12'
+                    className='text-lg text-slate-500 dark:text-slate-400 text-center mb-12'
                 >
                     Your own digital vault.
                 </motion.p>
@@ -61,9 +61,9 @@ const Auth = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="bg-slate-900/50 backdrop-blur-md border border-slate-700/50 rounded-2xl p-8 shadow-xl"
+                    className="bg-white/80 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 rounded-2xl p-8 shadow-xl dark:shadow-2xl"
                 >
-                    <h2 className="text-2xl font-bold text-white text-center mb-6">
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white text-center mb-6">
                         {isLogin ? 'Welcome Back' : 'Create Account'}
                     </h2>
 
@@ -79,7 +79,7 @@ const Auth = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Email"
                                 required
-                                className="w-full rounded-xl border border-slate-700 bg-slate-800/50 px-6 py-3 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300"
+                                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 px-6 py-3 text-slate-800 dark:text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300"
                             />
                         </motion.div>
 
@@ -95,7 +95,7 @@ const Auth = () => {
                                 placeholder="Password"
                                 required
                                 minLength={6}
-                                className="w-full rounded-xl border border-slate-700 bg-slate-800/50 px-6 py-3 text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300"
+                                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 px-6 py-3 text-slate-800 dark:text-white placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-300"
                             />
                         </motion.div>
 
@@ -103,7 +103,7 @@ const Auth = () => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="text-red-400 text-sm text-center bg-red-900/20 rounded-lg p-3 border border-red-800/50"
+                                className="text-red-500 dark:text-red-400 text-sm text-center bg-red-100 dark:bg-red-900/20 rounded-lg p-3 border border-red-300 dark:border-red-800/50"
                             >
                                 {error}
                             </motion.div>
@@ -124,7 +124,7 @@ const Auth = () => {
                         <motion.button
                             onClick={() => setIsLogin(!isLogin)}
                             whileHover={{ scale: 1.05 }}
-                            className="text-slate-400 hover:text-blue-400 transition-colors text-sm"
+                            className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm font-medium"
                         >
                             {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
                         </motion.button>

@@ -12,7 +12,11 @@ PassOP is a highly aesthetic, secure, and interactive Password Manager built wit
 
 - **Secure Authentication**: Email and password-based login powered by Supabase Auth.
 - **Password Vault**: Store, copy, search, categorize, and delete your passwords securely across different sites.
-- **Aesthetic UI**: Stunning, dynamic, and fluid user interface.
+- **Password Generator**: Generate strong, secure passwords with customizable length and parameters.
+- **Password Strength Indicator**: Real-time evaluation of password complexity (Weak to Strong).
+- **Privacy Controls**: Show/hide passwords in your vault to protect from prying eyes.
+- **Data Portability**: Export your password vault seamlessly to a CSV file.
+- **Dark/Light Theme**: Seamless toggle between stunning dark and light mode aesthetics.
 - **Interactive Background**: Beautiful floating gradient orbs and a custom mouse-tracking glow follower (using `framer-motion` springs).
 - **Responsive Design**: Works perfectly across mobile, tablet, and desktop devices.
 - **Real-time Toasts**: Instant success/error feedback loops via `react-hot-toast`.

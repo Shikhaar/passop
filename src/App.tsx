@@ -7,10 +7,12 @@ import Navbar from './components/Navbar';
 import Manager from './components/Manager';
 import Auth from './components/Auth';
 import AnimatedBackground from './components/AnimatedBackground';
+import { ThemeProvider, useTheme } from './components/ThemeContext';
 
-function App() {
+function AppContent() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const { theme } = useTheme();
 
   useEffect(() => {
     // Get initial session
@@ -48,21 +50,21 @@ function App() {
         toastOptions={{
           duration: 3000,
           style: {
-            background: '#1e293b',
-            color: '#f1f5f9',
-            border: '1px solid #334155',
+            background: theme === 'dark' ? '#1e293b' : '#ffffff',
+            color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
+            border: theme === 'dark' ? '1px solid #334155' : '1px solid #e2e8f0',
             borderRadius: '12px',
           },
           success: {
             iconTheme: {
               primary: '#22c55e',
-              secondary: '#f1f5f9',
+              secondary: theme === 'dark' ? '#f1f5f9' : '#ffffff',
             },
           },
           error: {
             iconTheme: {
               primary: '#ef4444',
-              secondary: '#f1f5f9',
+              secondary: theme === 'dark' ? '#f1f5f9' : '#ffffff',
             },
           },
         }}
@@ -76,6 +78,14 @@ function App() {
         <Auth />
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
